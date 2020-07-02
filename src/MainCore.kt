@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
     var taskEnd = false
     var taskCode: Int
     val fileControl = FileControl()
-    var fileName: String?
+    var fileName: String? = null
     val textEditor = TextEditor()
     var inputText = mutableListOf<String>()
     do {
@@ -25,6 +25,7 @@ fun main(args: Array<String>) {
         //Check Code
         when(taskCode) {
             0 -> {
+                println(Constants.TEXT_HORIZONTAL_LINE)
                 println("파일명을 입력해주세요")
                 fileName = readLine()
                 try {
@@ -34,7 +35,14 @@ fun main(args: Array<String>) {
                     println("파일이 존재하지 않습니다")
                 }
             }
-            2 -> inputText = textEditor.replaceLargeQuotes(inputText)
+            1 -> {
+                inputText = textEditor.removeManualIndents(inputText)
+                fileControl.saveText(fileName, inputText)
+            }
+            2 -> {
+                inputText = textEditor.replaceLargeQuotes(inputText)
+                fileControl.saveText(fileName, inputText)
+            }
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
         }

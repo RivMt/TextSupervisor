@@ -27,13 +27,33 @@ class TextEditor {
     }
 
     private fun replaceLargeQuote(text: String): EditResult {
-        println(text)
         text.replaceFirst(""""""","“")
         text.replace("""".?$""".toRegex(),"”")
 
         val b = text.contains("\"")
 
+        //TODO: 오류 존재
+
         return EditResult(text, b)
+    }
+
+    fun removeManualIndents(list: List<String>): MutableList<String> {
+        println(Constants.TEXT_HORIZONTAL_LINE)
+        println("수동 들여쓰기를 제거합니다")
+
+        val l = mutableListOf<String>()
+
+        for(item in list) {
+            val t = removeManualIndent(item)
+            l.add(t)
+            println("$item to $t")
+        }
+
+        return l
+    }
+
+    private fun removeManualIndent(text: String): String {
+        return text.replace("^[\\s　]+".toRegex(),"")
     }
 
 }
