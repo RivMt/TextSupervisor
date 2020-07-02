@@ -34,7 +34,7 @@ fun main(args: Array<String>) {
                     println("파일이 존재하지 않습니다")
                 }
             }
-            2 -> textEditor.replaceLargeQuotes(inputText)
+            2 -> inputText = textEditor.replaceLargeQuotes(inputText)
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
         }
@@ -44,9 +44,10 @@ fun main(args: Array<String>) {
 }
 
 private fun showMainOrder() {
+    println(Constants.TEXT_HORIZONTAL_LINE)
     println("0: 파일 불러오기\n" +
             "1: 수동 들여쓰기 제거\n" +
-            "2: 큰따옴표 정리" +
+            "2: 큰따옴표 정리\n" +
             "999: 종료")
-    println("작업을 선택해주세요: n")
+    print("작업을 선택해주세요: ")
 }

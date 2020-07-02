@@ -1,6 +1,7 @@
 class TextEditor {
 
-    fun replaceLargeQuotes(list: List<String>) {
+    fun replaceLargeQuotes(list: List<String>): MutableList<String> {
+        println(Constants.TEXT_HORIZONTAL_LINE)
         println("큰따옴표 수정을 개시합니다.")
 
         //
@@ -9,7 +10,7 @@ class TextEditor {
         var data: EditResult
         for (i in list.indices) {
             data = replaceLargeQuote(list[i])
-            l[i] = data.text
+            l.add(data.text)
             if (data.handle) {
                 println("${i+1}: ${data.text}")
                 count++
@@ -21,13 +22,18 @@ class TextEditor {
             println("▲ 자동 처리가 불가능한 문장 (계: ${count})")
         }
 
+        return l
+
     }
 
     private fun replaceLargeQuote(text: String): EditResult {
-        val t = text.replace("\"\n","”").replace("\n\"","“")
-        val b = t.contains("\"")
+        println(text)
+        text.replaceFirst(""""""","“")
+        text.replace("""".?$""".toRegex(),"”")
 
-        return EditResult(t, b)
+        val b = text.contains("\"")
+
+        return EditResult(text, b)
     }
 
 }

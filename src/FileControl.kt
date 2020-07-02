@@ -7,7 +7,10 @@ class FileControl {
         val inputStream: InputStream = File(fn).inputStream()
         val lineList = mutableListOf<String>()
 
-        inputStream.bufferedReader().forEachLine { lineList.add(it) }
+        inputStream.bufferedReader().forEachLine {
+            lineList.add(it)
+            println(it)
+        }
 
         return lineList
     }
