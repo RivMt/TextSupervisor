@@ -8,8 +8,11 @@ fun main(args: Array<String>) {
 
     //Task
     var taskEnd = false
-    var taskCode = Constants.CODE_CONSOLE_END
-    var inputText: List<String>
+    var taskCode: Int
+    val fileControl = FileControl()
+    var fileName: String?
+    val textEditor = TextEditor()
+    var inputText = mutableListOf<String>()
     do {
         //Main
         showMainOrder()
@@ -23,14 +26,15 @@ fun main(args: Array<String>) {
         when(taskCode) {
             0 -> {
                 println("파일명을 입력해주세요")
-                val fn = readLine()
+                fileName = readLine()
                 try {
-                    inputText = fn?.let { readText(it) }!!
-                    println("${fn}을 불러왔습니다")
+                    inputText = fileName?.let { fileControl.readText(it) }!!
+                    println("${fileName}을 불러왔습니다")
                 } catch (e: FileNotFoundException) {
                     println("파일이 존재하지 않습니다")
                 }
             }
+            2 -> textEditor.replaceLargeQuotes(inputText)
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
         }
@@ -39,16 +43,10 @@ fun main(args: Array<String>) {
 
 }
 
-private fun readText(fn: String): List<String> {
-    val inputStream: InputStream = File(fn).inputStream()
-    val lineList = mutableListOf<String>()
-
-    inputStream.bufferedReader().forEachLine { lineList.add(it) }
-
-    return lineList
-}
-
 private fun showMainOrder() {
-    println("0: 파일 불러오기\n1: 수동 들여쓰기 제거\n999: 종료")
+    println("0: 파일 불러오기\n" +
+            "1: 수동 들여쓰기 제거\n" +
+            "2: 큰따옴표 정리" +
+            "999: 종료")
     println("작업을 선택해주세요: n")
 }
