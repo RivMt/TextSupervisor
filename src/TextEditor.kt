@@ -4,8 +4,6 @@ class TextEditor {
         println(Constants.TEXT_HORIZONTAL_LINE)
         println("큰따옴표 수정을 개시합니다.")
 
-        //TODO: 문장 중간에 있는 경우 체크할 것
-
         //Make list to string
         val strBuilder = StringBuilder()
         var count = 0

@@ -29,7 +29,9 @@ class FileControl {
             val writer = BufferedWriter(FileWriter(file))
 
             for(item in text) {
-                writer.append("$item\n")
+                if (item != "") {
+                    writer.append("$item\n")
+                }
             }
 
             writer.close()
