@@ -43,6 +43,10 @@ fun main(args: Array<String>) {
                 inputText = textEditor.replaceLargeQuotes(inputText)
                 fileControl.saveText(fileName, inputText)
             }
+            3 -> {
+                inputText = textEditor.replaceHorizontalLines(inputText)
+                fileControl.saveText(fileName, inputText)
+            }
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
         }
@@ -56,6 +60,7 @@ private fun showMainOrder() {
     println("0: 파일 불러오기\n" +
             "1: 수동 들여쓰기 제거\n" +
             "2: 큰따옴표 정리\n" +
+            "3: 하이픈 기호 정리\n" +
             "999: 종료")
     print("작업을 선택해주세요: ")
 }

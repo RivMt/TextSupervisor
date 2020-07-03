@@ -4,37 +4,18 @@ class TextEditor {
         println(Constants.TEXT_HORIZONTAL_LINE)
         println("큰따옴표 수정을 개시합니다.")
 
-        //
-        var count = 0;//자동 처리 불가능한 문장 수
-        val l = mutableListOf<String>()
-        var data: EditResult
-        for (i in list.indices) {
-            data = replaceLargeQuote(list[i])
-            l.add(data.text)
-            if (data.handle) {
-                println("${i+1}: ${data.text}")
-                count++
-            }
+        //TODO: 문장 중간에 있는 경우 체크할 것
+
+        val strBuilder = StringBuilder()
+        strBuilder.append("\n")
+        for(item in list) {
+            strBuilder.append(item+"\n")
         }
+        return strBuilder.toString()
+                .replace("\n\"","\n“")
+                .replace("\"\n","”\n")
+                .split("\n").toMutableList()
 
-        //
-        if (count > 0) {
-            println("▲ 자동 처리가 불가능한 문장 (계: ${count})")
-        }
-
-        return l
-
-    }
-
-    private fun replaceLargeQuote(text: String): EditResult {
-        text.replaceFirst(""""""","“")
-        text.replace("""".?$""".toRegex(),"”")
-
-        val b = text.contains("\"")
-
-        //TODO: 오류 존재
-
-        return EditResult(text, b)
     }
 
     fun removeManualIndents(list: List<String>): MutableList<String> {
@@ -44,16 +25,23 @@ class TextEditor {
         val l = mutableListOf<String>()
 
         for(item in list) {
-            val t = removeManualIndent(item)
-            l.add(t)
-            println("$item to $t")
+            l.add(item.replace("^[\\s　]+".toRegex(),""))
         }
 
         return l
     }
 
-    private fun removeManualIndent(text: String): String {
-        return text.replace("^[\\s　]+".toRegex(),"")
+    fun replaceHorizontalLines(list: List<String>): MutableList<String> {
+        println(Constants.TEXT_HORIZONTAL_LINE)
+        println("하이픈 기호 정리를 시작합니다")
+
+        val l = mutableListOf<String>()
+
+        for(item in list) {
+            l.add(item.replace("[-—–‐\\-⁃‑―‒]+".toRegex(),"⸺"))
+        }
+
+        return l
     }
 
 }
