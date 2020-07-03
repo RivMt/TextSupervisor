@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException
+
 class TextEditor {
 
     fun replaceLargeQuotes(list: List<String>): MutableList<String> {
@@ -87,6 +89,22 @@ class TextEditor {
 
             l.add(t)
         }
+
+        return l
+    }
+
+    fun checkJapaneseNameConsistency(list: List<String>): MutableList<String> {
+        println(Constants.TEXT_HORIZONTAL_LINE)
+        println("일관성 검사를 시작합니다")
+
+        val l = mutableListOf<String>()
+        val fileControl = FileControl()
+
+        //Receive list
+        println("검사할 목록의 파일 이름을 입력해주세요")
+        val fileName = readLine()
+        var inputList = fileName?.let { fileControl.readText(it) }!!
+        println("${fileName}을 불러왔습니다")
 
         return l
     }

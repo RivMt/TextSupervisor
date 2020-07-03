@@ -53,6 +53,17 @@ fun main(args: Array<String>) {
                 inputText = textEditor.resetSpaces(inputText)
                 fileControl.saveText(fileName, inputText)
             }
+            5 -> {
+                try {
+
+                } catch (e: UnhandledException) {
+                    println("자동 처리에 실패했습니다")
+                } catch (e: FileNotFoundException) {
+                    println("파일을 불러올 수 없습니다")
+                } finally {
+                    println("예상치 못한 문제가 발생했습니다")
+                }
+            }
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
         }
@@ -68,6 +79,7 @@ private fun showMainOrder() {
             "2: 큰따옴표 정리\n" +
             "3: 특수문자 기호 정리\n" +
             "4: 띄어쓰기 점검\n" +
+            "5: 일본어 고유명사 일관성 검사\n" +
             "999: 종료")
     print("작업을 선택해주세요: ")
 }
