@@ -49,6 +49,10 @@ fun main(args: Array<String>) {
                 inputText = textEditor.replaceHorizontalLines(inputText)
                 fileControl.saveText(fileName, inputText)
             }
+            4 -> {
+                inputText = textEditor.resetSpaces(inputText)
+                fileControl.saveText(fileName, inputText)
+            }
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
         }
