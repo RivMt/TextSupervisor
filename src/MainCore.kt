@@ -1,6 +1,4 @@
-import java.io.File
 import java.io.FileNotFoundException
-import java.io.InputStream
 
 fun main(args: Array<String>) {
     println("Text Supervisor System")
@@ -64,7 +62,8 @@ private fun showMainOrder() {
     println("0: 파일 불러오기\n" +
             "1: 수동 들여쓰기 제거\n" +
             "2: 큰따옴표 정리\n" +
-            "3: 하이픈 기호 정리\n" +
+            "3: 특수문자 기호 정리\n" +
+            "4: 띄어쓰기 점검\n" +
             "999: 종료")
     print("작업을 선택해주세요: ")
 }

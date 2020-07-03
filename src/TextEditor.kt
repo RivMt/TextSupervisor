@@ -21,7 +21,7 @@ class TextEditor {
 
         //Check Unhandled Text
         if (count > 0) {
-            println("자동 처리가 불가능한 문장이 있습니다.")
+            println(Constants.MSG_UNHANDLED_TEXTS+"(계: $count)")
             throw UnhandledException()
         }
 
@@ -48,12 +48,46 @@ class TextEditor {
 
     fun replaceHorizontalLines(list: List<String>): MutableList<String> {
         println(Constants.TEXT_HORIZONTAL_LINE)
-        println("하이픈 기호 정리를 시작합니다")
+        println("특수문자 기호 정리를 시작합니다")
+
+        val l = mutableListOf<String>()
+        var count = 0
+
+        var t: String
+        for(i in list.indices) {
+            t = list[i].replace("[-—–‐\\-⁃‑―‒ーㅡ─━]+".toRegex(),"⸺")//Hyphen
+                    .replace("cm","㎝")
+                    .replace("mm","㎜")
+                    .replace("km","㎞")
+                    .replace("mg","㎎")
+                    .replace("kg","㎏")
+                    .replace("kt","㏏")
+
+            l.add(t)
+        }
+
+        //Show Error
+        if (count > 0) {
+            println(Constants.MSG_UNHANDLED_TEXTS+"(계: $count)")
+        }
+
+        return l
+    }
+
+    fun resetSpaces(list: List<String>): MutableList<String> {
+        println(Constants.TEXT_HORIZONTAL_LINE)
+        println("띄어쓰기 점검을 시작합니다")
 
         val l = mutableListOf<String>()
 
-        for(item in list) {
-            l.add(item.replace("[-—–‐\\-⁃‑―‒ーㅡ─━]+".toRegex(),"⸺"))
+        var t: String
+        for(i in list.indices) {
+            t = list[i]
+                    .replace(".",". ")
+                    .replace("  "," ")
+                    .replace(" . ",". ")
+
+            l.add(t)
         }
 
         return l

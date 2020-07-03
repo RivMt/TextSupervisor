@@ -5,4 +5,6 @@ public class Constants {
 
     public static final String TEXT_HORIZONTAL_LINE = "====================================";
 
+    public static final String MSG_UNHANDLED_TEXTS = "자동으로 처리되지 않은 문장이 있습니다.";
+
 }
