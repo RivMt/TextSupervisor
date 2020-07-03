@@ -40,8 +40,12 @@ fun main(args: Array<String>) {
                 fileControl.saveText(fileName, inputText)
             }
             2 -> {
-                inputText = textEditor.replaceLargeQuotes(inputText)
-                fileControl.saveText(fileName, inputText)
+                try {
+                    inputText = textEditor.replaceLargeQuotes(inputText)
+                    fileControl.saveText(fileName, inputText)
+                } catch (e: UnhandledException) {
+                    println("수동으로 처리한 뒤 다시 불러와주십시오")
+                }
             }
             3 -> {
                 inputText = textEditor.replaceHorizontalLines(inputText)

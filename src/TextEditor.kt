@@ -6,11 +6,26 @@ class TextEditor {
 
         //TODO: 문장 중간에 있는 경우 체크할 것
 
+        //Make list to string
         val strBuilder = StringBuilder()
+        var count = 0
         strBuilder.append("\n")
-        for(item in list) {
-            strBuilder.append(item+"\n")
+        for(i in list.indices) {
+            if (list[i].contains(""".".""".toRegex())) {
+                println("${i+1}: ${list[i]}")
+                count++
+            } else {
+                strBuilder.append(list[i] + "\n")
+            }
         }
+
+        //Check Unhandled Text
+        if (count > 0) {
+            println("자동 처리가 불가능한 문장이 있습니다.")
+            throw UnhandledException()
+        }
+
+        //No Error
         return strBuilder.toString()
                 .replace("\n\"","\n“")
                 .replace("\"\n","”\n")
@@ -38,7 +53,7 @@ class TextEditor {
         val l = mutableListOf<String>()
 
         for(item in list) {
-            l.add(item.replace("[-—–‐\\-⁃‑―‒]+".toRegex(),"⸺"))
+            l.add(item.replace("[-—–‐\\-⁃‑―‒ーㅡ─━]+".toRegex(),"⸺"))
         }
 
         return l
