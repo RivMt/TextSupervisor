@@ -12,7 +12,6 @@ class FileControl {
 
         inputStream.bufferedReader().forEachLine {
             lineList.add(it)
-            println(it)
         }
 
         inputStream.close()

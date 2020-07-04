@@ -1,7 +1,7 @@
 class TextEditor {
 
     fun replaceQuotes(list: List<String>): MutableList<String> {
-        println(Constants.TEXT_HORIZONTAL_LINE)
+        
         println("따옴표 수정을 개시합니다.\n조금 기다려주세요...")
 
         //Make list to string
@@ -12,6 +12,7 @@ class TextEditor {
         var changeSingle = ""
         var changeDouble = ""
         var t: String
+        var count = 0
         for(i in list.indices) {
             t = list[i]
             do {
@@ -37,16 +38,42 @@ class TextEditor {
                     checkDouble = !checkDouble
                 }
             } while(t.contains("'") || t.contains("\""))
+
+            //Check Doubted Sentence
+            if ( (t.contains("^”".toRegex()) || t.contains("“$".toRegex())
+                    || t.contains("^’".toRegex()) || t.contains("‘$".toRegex())) && count < 10) {
+                println("[경고] ${i+1}: ${t}")
+                count++
+            }
+
             strBuilder.append(t+"\n")
         }
 
-        //No Error
+        //Check Error
+        if (checkDouble || checkSingle || count > 0) {
+            println("닫히지 않은 따옴표가 있는 것 같습니다.\n수동으로 수정 후 복구를 실행해주세요")
+        }
+
         return strBuilder.toString()
                 .split("\n").toMutableList()
     }
 
+    fun refactorQuotes(list: List<String>): MutableList<String> {
+        
+        println("따옴표 오류 복구를 개시합니다.\n조금 기다려주세요...")
+
+        val l = mutableListOf<String>()
+        var t: String
+        for(item in list) {
+            t = item.replace("[‘’]".toRegex(),"'").replace("[“”]".toRegex(),"\"")
+            l.add(t)
+        }
+
+        return replaceQuotes(l)
+    }
+
     fun removeManualIndents(list: List<String>): MutableList<String> {
-        println(Constants.TEXT_HORIZONTAL_LINE)
+        
         println("수동 들여쓰기를 제거합니다")
 
         val l = mutableListOf<String>()
@@ -59,7 +86,7 @@ class TextEditor {
     }
 
     fun replaceSpecialCharacters(list: List<String>): MutableList<String> {
-        println(Constants.TEXT_HORIZONTAL_LINE)
+        
         println("특수문자 기호 정리를 시작합니다")
 
         val l = mutableListOf<String>()
@@ -88,7 +115,7 @@ class TextEditor {
     }
 
     fun resetSpaces(list: List<String>): MutableList<String> {
-        println(Constants.TEXT_HORIZONTAL_LINE)
+        
         println("띄어쓰기 점검을 시작합니다")
 
         val l = mutableListOf<String>()
@@ -99,6 +126,10 @@ class TextEditor {
                     .replace(".",". ")
                     .replace("  "," ")
                     .replace(" . ",". ")
+                    .replace(". \"",".\"")
+                    .replace(". '",".'")
+                    .replace(". ’",".’")
+                    .replace(". ”",".”")
 
             l.add(t)
         }
@@ -107,7 +138,7 @@ class TextEditor {
     }
 
     fun checkJapaneseNameConsistency(list: List<String>): MutableList<String> {
-        println(Constants.TEXT_HORIZONTAL_LINE)
+        
         println("일관성 검사를 시작합니다")
 
         val l = mutableListOf<String>()
