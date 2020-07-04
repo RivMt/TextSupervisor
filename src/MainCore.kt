@@ -52,6 +52,7 @@ fun main(args: Array<String>) {
                     }
                     102 -> inputText = textEditor.refactorQuotes(inputText)
                     200 -> getNotations(inputText)
+                    201 -> getBrackets(inputText)
                     500 -> {
                         inputText = textEditor.removeManualIndents(inputText)//들여쓰기
                         inputText = textEditor.replaceQuotes(inputText)//따옴표
@@ -77,6 +78,7 @@ private fun showMainOrder() {
             "5: 일본어 고유명사 일관성 검사\n" +
             "102: 따옴표 오류 복구\n" +
             "200: 각주 점검\n" +
+            "201: 괄호 점검\n" +
             "500: 추천 설정으로 자동 정리\n" +
             "999: 종료")
     print("작업을 선택해주세요: ")
@@ -94,11 +96,43 @@ private fun loadFile(fileName: String?): MutableList<String> {
 }
 
 private fun getNotations(list: List<String>) {
-    println("문서 정보")
+    println("각주 분석 정보")
     for(i in list.indices) {
         if (list[i].contains("각주|역자".toRegex())
-                || list[i].contains("*")) {
+                || list[i].contains("*")
+                || list[i].contains("\\[[0-9]+\\]".toRegex())) {
             println("${i+1}: ${list[i]}")
         }
     }
+}
+
+private fun getBrackets(list: List<String>) {
+    println("괄호 분석 정보")
+    var numberSmallBrackets = 0 //()
+    var numberMiddleBrackets = 0 //{}
+    var numberLargeBrackets = 0 //[]
+    var numberCurvedBrackets = 0 //〔〕
+    var numberRectBrackets = 0 //「 」
+    var numberDoubleRectBrackets = 0 //『 』
+    var numberArrowBrackets = 0 //〈〉
+    var numberDoubleArrowBrackets = 0 //《》
+    for(item in list) {
+        numberSmallBrackets += Utility.countChar(item, "\\(")
+        numberMiddleBrackets += Utility.countChar(item, "\\{")
+        numberLargeBrackets += Utility.countChar(item, "\\[")
+        numberCurvedBrackets += Utility.countChar(item, "〔")
+        numberRectBrackets += Utility.countChar(item, "「")
+        numberDoubleRectBrackets += Utility.countChar(item, "『")
+        numberArrowBrackets += Utility.countChar(item, "〈")
+        numberDoubleArrowBrackets += Utility.countChar(item, "《")
+    }
+
+    println("(소괄호) : $numberSmallBrackets\n" +
+            "{중괄호} : $numberMiddleBrackets\n" +
+            "[대괄호] : $numberLargeBrackets\n" +
+            "〔괄호〕: $numberCurvedBrackets\n" +
+            "「홑낫표」: $numberRectBrackets\n" +
+            "『겹낫표』: $numberDoubleRectBrackets\n" +
+            "〈홑화살괄호〉: $numberArrowBrackets\n" +
+            "《겹화살괄호》: $numberDoubleArrowBrackets")
 }
