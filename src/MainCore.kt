@@ -38,15 +38,11 @@ fun main(args: Array<String>) {
                 fileControl.saveText(fileName, inputText)
             }
             2 -> {
-                try {
-                    inputText = textEditor.replaceLargeQuotes(inputText)
-                    fileControl.saveText(fileName, inputText)
-                } catch (e: UnhandledException) {
-                    println("수동으로 처리한 뒤 다시 불러와주십시오")
-                }
+                inputText = textEditor.replaceQuotes(inputText)
+                fileControl.saveText(fileName, inputText)
             }
             3 -> {
-                inputText = textEditor.replaceHorizontalLines(inputText)
+                inputText = textEditor.replaceSpecialCharacters(inputText)
                 fileControl.saveText(fileName, inputText)
             }
             4 -> {
@@ -55,7 +51,7 @@ fun main(args: Array<String>) {
             }
             5 -> {
                 try {
-
+                    println("지원 예정입니다")
                 } catch (e: UnhandledException) {
                     println("자동 처리에 실패했습니다")
                 } catch (e: FileNotFoundException) {
@@ -63,6 +59,13 @@ fun main(args: Array<String>) {
                 } finally {
                     println("예상치 못한 문제가 발생했습니다")
                 }
+            }
+            500 -> {
+                inputText = textEditor.removeManualIndents(inputText)//들여쓰기
+                inputText = textEditor.resetSpaces(inputText)//띄어쓰기
+                inputText = textEditor.replaceQuotes(inputText)//따옴표
+                inputText = textEditor.replaceSpecialCharacters(inputText)//특수문자
+                fileControl.saveText(fileName, inputText)
             }
             Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             else -> taskEnd = true
@@ -76,10 +79,11 @@ private fun showMainOrder() {
     println(Constants.TEXT_HORIZONTAL_LINE)
     println("0: 파일 불러오기\n" +
             "1: 수동 들여쓰기 제거\n" +
-            "2: 큰따옴표 정리\n" +
+            "2: 따옴표 정리\n" +
             "3: 특수문자 기호 정리\n" +
             "4: 띄어쓰기 점검\n" +
             "5: 일본어 고유명사 일관성 검사\n" +
+            "500: 추천 설정으로 자동 정리\n" +
             "999: 종료")
     print("작업을 선택해주세요: ")
 }

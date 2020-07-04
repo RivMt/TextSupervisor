@@ -1,36 +1,48 @@
-import java.io.FileNotFoundException
-
 class TextEditor {
 
-    fun replaceLargeQuotes(list: List<String>): MutableList<String> {
+    fun replaceQuotes(list: List<String>): MutableList<String> {
         println(Constants.TEXT_HORIZONTAL_LINE)
-        println("큰따옴표 수정을 개시합니다.")
+        println("따옴표 수정을 개시합니다.\n조금 기다려주세요...")
 
         //Make list to string
         val strBuilder = StringBuilder()
-        var count = 0
         strBuilder.append("\n")
+        var checkSingle = false
+        var checkDouble = false
+        var changeSingle = ""
+        var changeDouble = ""
+        var t: String
         for(i in list.indices) {
-            if (list[i].contains(""".".""".toRegex())) {
-                println("${i+1}: ${list[i]}")
-                count++
-            } else {
-                strBuilder.append(list[i] + "\n")
-            }
-        }
+            t = list[i]
+            do {
+                if (t.contains("'")) {
+                    changeSingle = if (!checkSingle) {
+                        "‘"//Start
+                    } else {
+                        "’"
+                    }
 
-        //Check Unhandled Text
-        if (count > 0) {
-            println(Constants.MSG_UNHANDLED_TEXTS+"(계: $count)")
-            throw UnhandledException()
+                    t = t.replaceFirst("'", changeSingle)
+                    checkSingle = !checkSingle
+                }
+
+                if (t.contains("\"")) {
+                    changeDouble = if (!checkDouble) {
+                        "“"//Start
+                    } else {
+                        "”"
+                    }
+
+                    t = t.replaceFirst("\"", changeDouble)
+                    checkDouble = !checkDouble
+                }
+            } while(t.contains("'") || t.contains("\""))
+            strBuilder.append(t+"\n")
         }
 
         //No Error
         return strBuilder.toString()
-                .replace("\n\"","\n“")
-                .replace("\"\n","”\n")
                 .split("\n").toMutableList()
-
     }
 
     fun removeManualIndents(list: List<String>): MutableList<String> {
@@ -46,7 +58,7 @@ class TextEditor {
         return l
     }
 
-    fun replaceHorizontalLines(list: List<String>): MutableList<String> {
+    fun replaceSpecialCharacters(list: List<String>): MutableList<String> {
         println(Constants.TEXT_HORIZONTAL_LINE)
         println("특수문자 기호 정리를 시작합니다")
 
@@ -56,12 +68,13 @@ class TextEditor {
         var t: String
         for(i in list.indices) {
             t = list[i].replace("[-—–‐\\-⁃‑―‒ーㅡ─━]+".toRegex(),"⸺")//Hyphen
-                    .replace("cm","㎝")
+                    .replace("cm","㎝")//Units
                     .replace("mm","㎜")
                     .replace("km","㎞")
                     .replace("mg","㎎")
                     .replace("kg","㎏")
                     .replace("kt","㏏")
+                    .replace("...","…")//Dots
 
             l.add(t)
         }
