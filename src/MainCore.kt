@@ -58,6 +58,7 @@ fun main(args: Array<String>) {
                         inputText = textEditor.replaceQuotes(inputText)//따옴표
                         inputText = textEditor.replaceSpecialCharacters(inputText)//특수문자
                         inputText = textEditor.resetSpaces(inputText)//띄어쓰기
+                        getBrackets(inputText)//괄호점검
                     }
                 }
                 fileControl.saveText(fileName, inputText)
@@ -98,7 +99,7 @@ private fun loadFile(fileName: String?): MutableList<String> {
 private fun getNotations(list: List<String>) {
     println("각주 분석 정보")
     for(i in list.indices) {
-        if (list[i].contains("각주|역자".toRegex())
+        if (list[i].contains("각주|역자|역주|식자|주석|참고".toRegex())
                 || list[i].contains("*")
                 || list[i].contains("\\[[0-9]+\\]".toRegex())) {
             println("${i+1}: ${list[i]}")
@@ -116,15 +117,17 @@ private fun getBrackets(list: List<String>) {
     var numberDoubleRectBrackets = 0 //『 』
     var numberArrowBrackets = 0 //〈〉
     var numberDoubleArrowBrackets = 0 //《》
+    var numberGLEQBrackets = 0 //<>
     for(item in list) {
-        numberSmallBrackets += Utility.countChar(item, "\\(")
-        numberMiddleBrackets += Utility.countChar(item, "\\{")
-        numberLargeBrackets += Utility.countChar(item, "\\[")
-        numberCurvedBrackets += Utility.countChar(item, "〔")
-        numberRectBrackets += Utility.countChar(item, "「")
-        numberDoubleRectBrackets += Utility.countChar(item, "『")
-        numberArrowBrackets += Utility.countChar(item, "〈")
-        numberDoubleArrowBrackets += Utility.countChar(item, "《")
+        numberSmallBrackets += item.length-item.replace("(","").length+item.length-item.replace(")","").length
+        numberMiddleBrackets += item.length-item.replace("{","").length+item.length-item.replace("}","").length
+        numberLargeBrackets += item.length-item.replace("[","").length+item.length-item.replace("]","").length
+        numberCurvedBrackets += item.length-item.replace("〔","").length+item.length-item.replace("〕","").length
+        numberRectBrackets += item.length-item.replace("「","").length+item.length-item.replace("」","").length
+        numberDoubleRectBrackets += item.length-item.replace("『","").length+item.length-item.replace("』","").length
+        numberArrowBrackets += item.length-item.replace("〈","").length+item.length-item.replace("〉","").length
+        numberDoubleArrowBrackets += item.length-item.replace("《","").length+item.length-item.replace("》","").length
+        numberGLEQBrackets += item.length-item.replace("<","").length+item.length-item.replace(">","").length
     }
 
     println("(소괄호) : $numberSmallBrackets\n" +
@@ -134,5 +137,11 @@ private fun getBrackets(list: List<String>) {
             "「홑낫표」: $numberRectBrackets\n" +
             "『겹낫표』: $numberDoubleRectBrackets\n" +
             "〈홑화살괄호〉: $numberArrowBrackets\n" +
-            "《겹화살괄호》: $numberDoubleArrowBrackets")
+            "《겹화살괄호》: $numberDoubleArrowBrackets\n" +
+            "<부등호>: $numberGLEQBrackets")
+
+    if (numberMiddleBrackets+numberLargeBrackets+numberGLEQBrackets > 0) {
+        Log.i("인쇄체에 적합하지 않은 괄호가 ${numberMiddleBrackets+numberLargeBrackets+numberGLEQBrackets}개 발견되었습니다.\n" +
+                "적합한 형태로 교체해주세요.")
+    }
 }

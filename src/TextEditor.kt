@@ -41,8 +41,9 @@ class TextEditor {
 
             //Check Doubted Sentence
             if ( (t.contains("^”".toRegex()) || t.contains("“$".toRegex())
-                    || t.contains("^’".toRegex()) || t.contains("‘$".toRegex())) && count < 10) {
-                println("[경고] ${i+1}: ${t}")
+                    || t.contains("^’".toRegex()) || t.contains("‘$".toRegex())
+                            || t.contains("\\s’".toRegex()) || t.contains("‘\\s".toRegex())) && count < 10) {
+                Log.w(i+1, t)
                 count++
             }
 
