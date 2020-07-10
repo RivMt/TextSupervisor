@@ -43,7 +43,7 @@ class TextEditor {
             if ( (t.contains("^”".toRegex()) || t.contains("“$".toRegex())
                     || t.contains("^’".toRegex()) || t.contains("‘$".toRegex())
                             || t.contains("\\s’".toRegex()) || t.contains("‘\\s".toRegex())) && count < 10) {
-                Log.w(i+1, t.substring(0,Constants.TEXT_MAX_CHARACTERS_PER_LINE))
+                Log.w(i+1, t.substring(0,Math.min(Constants.TEXT_MAX_CHARACTERS_PER_LINE, t.length)))
                 count++
             }
 

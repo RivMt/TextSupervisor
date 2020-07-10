@@ -102,7 +102,7 @@ private fun getNotations(list: List<String>) {
         if (list[i].contains("각주|역자|역주|식자|주석|참고".toRegex())
                 || list[i].contains("*")
                 || list[i].contains("\\[[0-9]+\\]".toRegex())) {
-            println("${i+1}: ${list[i].substring(0,Constants.TEXT_MAX_CHARACTERS_PER_LINE)}")
+            println("${i+1}: ${list[i].substring(0,Math.min(Constants.TEXT_MAX_CHARACTERS_PER_LINE, list[i].length))}")
         }
     }
 }
