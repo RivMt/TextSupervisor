@@ -1,0 +1,3 @@
+class UnhandledException: Exception() {
+    
+}
