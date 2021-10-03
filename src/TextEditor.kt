@@ -103,6 +103,8 @@ class TextEditor {
                     .replace("kg","㎏")
                     .replace("kt","㏏")
                     .replace("...","…")//Dots
+                    .replace("···", "…")
+                    .replace("…·", "…")
 
             l.add(t)
         }

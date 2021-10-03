@@ -35,10 +35,10 @@ fun main(args: Array<String>) {
                 println(Constants.TEXT_HORIZONTAL_LINE)
                 inputText = loadFile(fileName)
                 when(taskCode) {
-                    1 -> inputText = textEditor.removeManualIndents(inputText)
-                    2 -> inputText = textEditor.replaceQuotes(inputText)
-                    3 -> inputText = textEditor.replaceSpecialCharacters(inputText)
-                    4 -> inputText = textEditor.resetSpaces(inputText)
+                    //1 -> inputText = textEditor.removeManualIndents(inputText)
+                    //2 -> inputText = textEditor.replaceQuotes(inputText)
+                    //3 -> inputText = textEditor.replaceSpecialCharacters(inputText)
+                    //4 -> inputText = textEditor.resetSpaces(inputText)
                     5 -> {
                         try {
                             println("지원 예정입니다")
@@ -50,17 +50,18 @@ fun main(args: Array<String>) {
                             println("예상치 못한 문제가 발생했습니다")
                         }
                     }
-                    102 -> inputText = textEditor.refactorQuotes(inputText)
-                    200 -> getNotations(inputText)
-                    201 -> getBrackets(inputText)
+                    //6 -> inputText = textEditor.interactiveQuotesEditor(inputText)
+                    //102 -> inputText = textEditor.refactorQuotes(inputText)
+                    //200 -> getNotations(inputText)
+                    //201 -> getBrackets(inputText)
                     500 -> {
                         inputText = textEditor.removeManualIndents(inputText)//들여쓰기
-                        inputText = textEditor.replaceQuotes(inputText)//따옴표
+                        inputText = textEditor.interactiveQuotesEditor(inputText)
                         inputText = textEditor.replaceSpecialCharacters(inputText)//특수문자
                         inputText = textEditor.resetSpaces(inputText)//띄어쓰기
                         getBrackets(inputText)//괄호점검
+                        getNotations(inputText)//각주
                     }
-                    600 -> inputText = textEditor.interactiveQuotesEditor(inputText)
                 }
                 fileControl.saveText(fileName, inputText)
             }
@@ -73,16 +74,16 @@ fun main(args: Array<String>) {
 private fun showMainOrder() {
     println(Constants.TEXT_HORIZONTAL_LINE)
     println("0: 파일 불러오기\n" +
-            "1: 수동 들여쓰기 제거\n" +
-            "2: 따옴표 정리\n" +
-            "3: 특수문자 기호 정리\n" +
-            "4: 띄어쓰기 점검\n" +
+            //"1: 수동 들여쓰기 제거\n" +
+            //"2: 따옴표 정리\n" +
+            //"3: 특수문자 기호 정리\n" +
+            //"4: 띄어쓰기 점검\n" +
             "5: 일본어 고유명사 일관성 검사\n" +
-            "102: 따옴표 오류 복구\n" +
-            "200: 각주 점검\n" +
-            "201: 괄호 점검\n" +
+            //"6: 대화형 따옴표 수정기\n"+
+            //"102: 따옴표 오류 복구\n" +
+            //"200: 각주 점검\n" +
+            //"201: 괄호 점검\n" +
             "500: 추천 설정으로 자동 정리\n" +
-            "600: 대화형 따옴표 수정기\n"+
             "999: 종료")
     print("작업을 선택해주세요: ")
 }
