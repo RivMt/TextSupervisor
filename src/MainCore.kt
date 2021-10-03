@@ -60,6 +60,7 @@ fun main(args: Array<String>) {
                         inputText = textEditor.resetSpaces(inputText)//띄어쓰기
                         getBrackets(inputText)//괄호점검
                     }
+                    600 -> inputText = textEditor.interactiveQuotesEditor(inputText)
                 }
                 fileControl.saveText(fileName, inputText)
             }
@@ -81,6 +82,7 @@ private fun showMainOrder() {
             "200: 각주 점검\n" +
             "201: 괄호 점검\n" +
             "500: 추천 설정으로 자동 정리\n" +
+            "600: 대화형 따옴표 수정기\n"+
             "999: 종료")
     print("작업을 선택해주세요: ")
 }
