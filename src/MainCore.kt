@@ -1,8 +1,8 @@
 import java.io.FileNotFoundException
 
 fun main(args: Array<String>) {
-    println("Text Supervisor System")
-    println("강제개행된 텍스트에 사용하지 마십시오")
+    Log.v("Text Supervisor System")
+    Log.v("강제개행된 텍스트에 사용하지 마십시오")
 
     //Task
     var taskEnd = false
@@ -23,16 +23,16 @@ fun main(args: Array<String>) {
         //Check Code
         when(taskCode) {
             0 -> {
-                println(Constants.TEXT_HORIZONTAL_LINE)
-                println("파일명을 입력해주세요")
+                Log.v(Constants.TEXT_HORIZONTAL_LINE)
+                Log.v("파일명을 입력해주세요")
                 fileName = readLine()
                 inputText = loadFile(fileName)
                 fileControl.saveText(fileName, inputText)
             }
-            Constants.CODE_CONSOLE_INVALID -> println("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
+            Constants.CODE_CONSOLE_INVALID -> Log.v("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             Constants.CODE_CONSOLE_END -> taskEnd = true
             else -> {
-                println(Constants.TEXT_HORIZONTAL_LINE)
+                Log.v(Constants.TEXT_HORIZONTAL_LINE)
                 inputText = loadFile(fileName)
                 when(taskCode) {
                     //1 -> inputText = textEditor.removeManualIndents(inputText)
@@ -40,15 +40,14 @@ fun main(args: Array<String>) {
                     //3 -> inputText = textEditor.replaceSpecialCharacters(inputText)
                     //4 -> inputText = textEditor.resetSpaces(inputText)
                     5 -> {
-                        try {
-                            println("파일명을 입력해주세요")
+                        //try {
+                            Log.v("처리할 인명 목록이 있는 파일명을 입력해주세요")
                             val fn = readLine()
                             inputText = NameEditor.fixNameConsistency(loadName(fn), inputText)
-                        } catch (e: Exception) {
-                            println("자동 처리에 실패했습니다")
-                        } finally {
-                            println("예상치 못한 문제가 발생했습니다")
-                        }
+                        /*} catch (e: Exception) {
+                            Log.e("자동 처리에 실패했습니다")
+                            Log.e(e.toString())
+                        }*/
                     }
                     //6 -> inputText = textEditor.interactiveQuotesEditor(inputText)
                     //102 -> inputText = textEditor.refactorQuotes(inputText)
@@ -72,8 +71,8 @@ fun main(args: Array<String>) {
 }
 
 private fun showMainOrder() {
-    println(Constants.TEXT_HORIZONTAL_LINE)
-    println("0: 파일 불러오기\n" +
+    Log.v(Constants.TEXT_HORIZONTAL_LINE)
+    Log.v("0: 파일 불러오기\n" +
             //"1: 수동 들여쓰기 제거\n" +
             //"2: 따옴표 정리\n" +
             //"3: 특수문자 기호 정리\n" +
@@ -91,10 +90,10 @@ private fun showMainOrder() {
 private fun loadFile(fileName: String?): MutableList<String> {
     val fileControl = FileControl()
     return try {
-        println("${fileName}을 불러왔습니다")
+        Log.v("${fileName}을 불러왔습니다")
         fileName?.let { fileControl.readText(it) }!!
     } catch (e: FileNotFoundException) {
-        println("파일이 존재하지 않습니다")
+        Log.v("파일이 존재하지 않습니다")
         mutableListOf()
     }
 }
@@ -102,27 +101,27 @@ private fun loadFile(fileName: String?): MutableList<String> {
 private fun loadName(fileName: String?): MutableList<NameObject> {
     val fileControl = FileControl()
     return try {
-        println("${fileName}을 불러왔습니다")
+        Log.v("${fileName}을 불러왔습니다")
         fileName?.let { fileControl.readName(it) }!!
     } catch (e: FileNotFoundException) {
-        println("파일이 존재하지 않습니다")
+        Log.v("파일이 존재하지 않습니다")
         mutableListOf()
     }
 }
 
 private fun getNotations(list: List<String>) {
-    println("각주 분석 정보")
+    Log.v("각주 분석 정보")
     for(i in list.indices) {
         if (list[i].contains("각주|역자|역주|식자|주석|참고".toRegex())
                 || list[i].contains("*")
                 || list[i].contains("\\[[0-9]+\\]".toRegex())) {
-            println("${i+1}: ${list[i].substring(0,Math.min(Constants.TEXT_MAX_CHARACTERS_PER_LINE, list[i].length))}")
+            Log.v("${i+1}: ${list[i].substring(0,Math.min(Constants.TEXT_MAX_CHARACTERS_PER_LINE, list[i].length))}")
         }
     }
 }
 
 private fun getBrackets(list: List<String>) {
-    println("괄호 분석 정보")
+    Log.v("괄호 분석 정보")
     var numberSmallBrackets = 0 //()
     var numberMiddleBrackets = 0 //{}
     var numberLargeBrackets = 0 //[]
@@ -144,7 +143,7 @@ private fun getBrackets(list: List<String>) {
         numberGLEQBrackets += item.length-item.replace("<","").length+item.length-item.replace(">","").length
     }
 
-    println("(소괄호) : $numberSmallBrackets\n" +
+    Log.v("(소괄호) : $numberSmallBrackets\n" +
             "{중괄호} : $numberMiddleBrackets\n" +
             "[대괄호] : $numberLargeBrackets\n" +
             "〔괄호〕: $numberCurvedBrackets\n" +

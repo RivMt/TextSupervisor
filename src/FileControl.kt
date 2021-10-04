@@ -11,11 +11,13 @@ class FileControl {
         val nameList = mutableListOf<NameObject>()
 
         inputStream.bufferedReader().forEachLine {
-            nameList.add(NameObject(
+            val obj = NameObject(
                 it.split("&")[0],
                 JapaneseNameKoreanCandidatesGenerator.makeNameCases(it.split("&")[0]),
                 it.split("&")[1]
-            ))
+            )
+            nameList.add(obj)
+            Log.d(obj.toString())
         }
 
         inputStream.close()
