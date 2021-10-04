@@ -10,6 +10,7 @@ class NameEditor {
                         var count = 0
                         for(line in text) {
                             if (line.contains(item)) {
+                                Log.v(line)
                                 count++
                             }
                         }
