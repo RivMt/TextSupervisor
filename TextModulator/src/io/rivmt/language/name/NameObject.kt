@@ -1,3 +1,5 @@
+package io.rivmt.language.name
+
 data class NameObject(
     val input: String,
     val candidates: MutableList<String>,

@@ -1,4 +1,13 @@
+package io.rivmt.cli
+
 import java.io.FileNotFoundException
+
+import io.rivmt.utility.Log
+import io.rivmt.utility.Constants
+import io.rivmt.file.FileControl
+import io.rivmt.editor.TextEditor
+import io.rivmt.editor.NameEditor
+import io.rivmt.language.name.NameObject
 
 fun main(args: Array<String>) {
     Log.v("Text Supervisor System")
@@ -9,8 +18,7 @@ fun main(args: Array<String>) {
     var taskCode: Int
     val fileControl = FileControl()
     var fileName: String? = null
-    val textEditor = TextEditor()
-    var inputText = mutableListOf<String>()
+    var inputText: MutableList<String>
     do {
         //Main
         showMainOrder()
@@ -35,10 +43,6 @@ fun main(args: Array<String>) {
                 Log.v(Constants.TEXT_HORIZONTAL_LINE)
                 inputText = loadFile(fileName)
                 when(taskCode) {
-                    //1 -> inputText = textEditor.removeManualIndents(inputText)
-                    //2 -> inputText = textEditor.replaceQuotes(inputText)
-                    //3 -> inputText = textEditor.replaceSpecialCharacters(inputText)
-                    //4 -> inputText = textEditor.resetSpaces(inputText)
                     5 -> {
                         //try {
                             Log.v("처리할 인명 목록이 있는 파일명을 입력해주세요")
@@ -49,15 +53,11 @@ fun main(args: Array<String>) {
                             Log.e(e.toString())
                         }*/
                     }
-                    //6 -> inputText = textEditor.interactiveQuotesEditor(inputText)
-                    //102 -> inputText = textEditor.refactorQuotes(inputText)
-                    //200 -> getNotations(inputText)
-                    //201 -> getBrackets(inputText)
                     500 -> {
-                        inputText = textEditor.removeManualIndents(inputText)//들여쓰기
-                        inputText = textEditor.interactiveQuotesEditor(inputText)
-                        inputText = textEditor.replaceSpecialCharacters(inputText)//특수문자
-                        inputText = textEditor.resetSpaces(inputText)//띄어쓰기
+                        inputText = TextEditor.removeManualIndents(inputText)//들여쓰기
+                        inputText = TextEditor.interactiveQuotesEditor(inputText)
+                        inputText = TextEditor.replaceSpecialCharacters(inputText)//특수문자
+                        inputText = TextEditor.resetSpaces(inputText)//띄어쓰기
                         getBrackets(inputText)//괄호점검
                         getNotations(inputText)//각주
                     }

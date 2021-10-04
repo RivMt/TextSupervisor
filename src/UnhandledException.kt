@@ -1,3 +1,0 @@
-class UnhandledException: Exception() {
-    
-}

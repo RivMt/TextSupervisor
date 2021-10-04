@@ -1,3 +1,8 @@
+package io.rivmt.editor
+
+import io.rivmt.utility.Log
+import io.rivmt.language.name.NameObject
+
 class NameEditor {
     companion object {
         fun fixNameConsistency(list: MutableList<NameObject>, text: MutableList<String>): MutableList<String> {
@@ -20,10 +25,11 @@ class NameEditor {
                             Log.v("${find.input}에 대한 후보 ${item}에 대해 ${count}개가 발견되었습니다.")
                             Log.v("${find.change}로 수정하시겠습니까? (Y/n)")
                             val rl = readLine()
-                            if (rl!!.toLowerCase() == "y") {
-                                for(line in text) {
+                            for(line in text) {
+                                if (rl!!.toLowerCase() == "y") {
                                     result.add(line.replace(item, find.change))
-                                    Log.d(line)
+                                } else {
+                                    result.add(line)
                                 }
                             }
                         }

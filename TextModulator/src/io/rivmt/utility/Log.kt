@@ -1,3 +1,5 @@
+package io.rivmt.utility
+
 class Log {
 
     companion object {

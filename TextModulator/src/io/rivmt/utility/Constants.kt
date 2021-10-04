@@ -1,3 +1,5 @@
+package io.rivmt.utility
+
 class Constants {
     companion object {
         const val CODE_CONSOLE_END = 999;

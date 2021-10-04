@@ -1,4 +1,9 @@
-class JapaneseNameKoreanCandidatesGenerator {
+package io.rivmt.language
+
+import io.rivmt.utility.Log
+import io.rivmt.language.HangulHandler
+
+class Japanese2Korean {
     
     ///TODO: Fix indent
     
@@ -193,13 +198,10 @@ class JapaneseNameKoreanCandidatesGenerator {
         var candidateSize = 1
         
         var nameChars: List<String>
-        var isNameSingle: Boolean
         if (input.contains(",")) {
             nameChars = input.split(",")
-            isNameSingle = false
         } else {
             nameChars = listOf(input)
-            isNameSingle = true
         }
         
         //Select candidates characters
@@ -243,10 +245,10 @@ class JapaneseNameKoreanCandidatesGenerator {
                 if (hasFinalConsonant) {
                     candidateChars[i] = kanaKoreanMap[char.replace("ん", "").replace("っ", "")]!!.toMutableList()
                     for((j,item) in candidateChars[i].withIndex()) {
-                        candidateChars[i][j] = HangulController.combinateHangul(
-                            HangulController.getChoseong(item.single()),
-                            HangulController.getJungseong(item.single()),
-                            HangulController.getJongseong(last)
+                        candidateChars[i][j] = HangulHandler.combinateHangul(
+                            HangulHandler.getChoseong(item.single()),
+                            HangulHandler.getJungseong(item.single()),
+                            HangulHandler.getJongseong(last)
                         ).toString()
                     }
                 } else {
@@ -264,7 +266,7 @@ class JapaneseNameKoreanCandidatesGenerator {
         
         //Make candidates
         var period = result.size
-        for((i,list) in candidateChars.withIndex()) {
+        for(list in candidateChars) {
             period /= list.size
             var resultIndex = 0
             var periodIndex = 0

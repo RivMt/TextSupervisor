@@ -1,3 +1,8 @@
+package io.rivmt.editor
+
+import io.rivmt.utility.Utility
+import io.rivmt.utility.Log
+
 class QuotesEditor {
     companion object {
         const val TYPE_DOUBLE_QUOTES_NONE = 0
@@ -15,13 +20,8 @@ class QuotesEditor {
         
         fun judgeDoubleQuotesType(text: String): Int {
             //Count double quotes' number
-            val chars = text.toCharArray()
-            var count = 0
-            for(char in chars) {
-                if (char == '"') {
-                    count++
-                }
-            }
+            val count = Utility.countChar(text, '"')
+            
             //Judge type
             when(count) {
                 0 -> return TYPE_DOUBLE_QUOTES_NONE //Not exist
@@ -137,14 +137,9 @@ class QuotesEditor {
         fun editSingleQuotes(str: String): String {
             var text = str
             //Count single quotes' number
-            val chars = text.toCharArray()
-            var count = 0
-            for(char in chars) {
-                if (char == '\'') {
-                    count++
-                }
-            }
-            //
+            val count = Utility.countChar(text, '\'')
+            
+            //Edit
             when(count) {
                 1 -> {
                     Log.v(str)

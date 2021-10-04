@@ -1,4 +1,6 @@
-class HangulController {
+package io.rivmt.language
+
+class HangulHandler {
 
     companion object {
         fun getChoseong(text: Char): Int {
@@ -14,7 +16,6 @@ class HangulController {
         }
 
         fun combinateHangul(first: Int, middle: Int, last: Int): Char {
-            Log.d("Combinate: $first, $middle, $last")
             return (44032+first*588+middle*28+last).toChar()
         }
     }

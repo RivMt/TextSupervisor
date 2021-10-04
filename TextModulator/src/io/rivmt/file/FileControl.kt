@@ -1,8 +1,14 @@
+package io.rivmt.file
+
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.InputStream
 import java.lang.Exception
+
+import io.rivmt.language.Japanese2Korean
+import io.rivmt.language.name.NameObject
+import io.rivmt.utility.Log
 
 class FileControl {
     
@@ -13,7 +19,7 @@ class FileControl {
         inputStream.bufferedReader().forEachLine {
             val obj = NameObject(
                 it.split("&")[0],
-                JapaneseNameKoreanCandidatesGenerator.makeNameCases(it.split("&")[0]),
+                Japanese2Korean.makeNameCases(it.split("&")[0]),
                 it.split("&")[1]
             )
             nameList.add(obj)
