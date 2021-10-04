@@ -41,11 +41,11 @@ fun main(args: Array<String>) {
                     //4 -> inputText = textEditor.resetSpaces(inputText)
                     5 -> {
                         try {
-                            println("지원 예정입니다")
-                        } catch (e: UnhandledException) {
+                            println("파일명을 입력해주세요")
+                            val fn = readLine()
+                            inputText = NameEditor.fixNameConsistency(loadName(fn), inputText)
+                        } catch (e: Exception) {
                             println("자동 처리에 실패했습니다")
-                        } catch (e: FileNotFoundException) {
-                            println("파일을 불러올 수 없습니다")
                         } finally {
                             println("예상치 못한 문제가 발생했습니다")
                         }
@@ -93,6 +93,17 @@ private fun loadFile(fileName: String?): MutableList<String> {
     return try {
         println("${fileName}을 불러왔습니다")
         fileName?.let { fileControl.readText(it) }!!
+    } catch (e: FileNotFoundException) {
+        println("파일이 존재하지 않습니다")
+        mutableListOf()
+    }
+}
+
+private fun loadName(fileName: String?): MutableList<NameObject> {
+    val fileControl = FileControl()
+    return try {
+        println("${fileName}을 불러왔습니다")
+        fileName?.let { fileControl.readName(it) }!!
     } catch (e: FileNotFoundException) {
         println("파일이 존재하지 않습니다")
         mutableListOf()

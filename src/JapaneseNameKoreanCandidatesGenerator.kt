@@ -1,4 +1,8 @@
-class JapaneseNameFinder {
+class JapaneseNameKoreanCandidatesGenerator {
+    
+    ///TODO: Fix indent
+    
+    companion object {
     
     val kanaLongSoundDoubleMap = mapOf(
         "あ" to "아",
@@ -208,22 +212,46 @@ class JapaneseNameFinder {
             //연속형 장음
             if (longDoulbe.containsMatchIn(char)) {
                 candidateChars[i] = kanaKoreanMap[char.replace("=", "")]!!.toMutableList()
-                //한글자일 때만 장음 붙임
-                if (isNameSingle) {
-                    for((j, ch) in candidateChars[i].withIndex()) {
-                        candidateChars[i][j] = ch + kanaLongSoundDoubleMap[ch.takeLast(1)]
-                    }
+                var index = 0
+                repeat(candidateChars[i].size) {
+                    val ch = candidateChars[i][index]
+                    candidateChars[i].add(ch + kanaLongSoundDoubleMap[char.replace("=", "").takeLast(1)])
+                    index++
                 }
             } else if (longLow.containsMatchIn(char)) {
                 candidateChars[i] = kanaKoreanMap[char.replace("-", "")]!!.toMutableList()
-                //한글자일 때만 장음 붙임
-                if (isNameSingle) {
-                    for((j, ch) in candidateChars[i].withIndex()) {
-                        candidateChars[i][j] = ch + "우"
-                    }
+                var index = 0
+                repeat(candidateChars[i].size) {
+                    val ch = candidateChars[i][index]
+                    candidateChars[i].add(ch + "우")
+                    index++
                 }
             } else {
-                candidateChars[i] = kanaKoreanMap[char]!!.toMutableList()
+                //받침
+                val finalConsonantTsu = "っ$".toRegex()
+                val finalConsonantN = "ん$".toRegex()
+                var hasFinalConsonant = false
+                var last = '아'
+                if (finalConsonantTsu.containsMatchIn(char)) {
+                    hasFinalConsonant = true
+                    last = '앗'
+                } else if (finalConsonantN.containsMatchIn(char)) {
+                    hasFinalConsonant = true
+                    last = '안'
+                }
+                
+                if (hasFinalConsonant) {
+                    candidateChars[i] = kanaKoreanMap[char.replace("ん", "").replace("っ", "")]!!.toMutableList()
+                    for((j,item) in candidateChars[i].withIndex()) {
+                        candidateChars[i][j] = HangulController.combinateHangul(
+                            HangulController.getChoseong(item.single()),
+                            HangulController.getJungseong(item.single()),
+                            HangulController.getJongseong(last)
+                        ).toString()
+                    }
+                } else {
+                    candidateChars[i] = kanaKoreanMap[char]!!.toMutableList()
+                }
             }
             Log.d("$char: " + candidateChars[i].toString())
             candidateSize *= candidateChars[i].size
@@ -237,13 +265,11 @@ class JapaneseNameFinder {
         //Make candidates
         var period = result.size
         for((i,list) in candidateChars.withIndex()) {
-            Log.d(i, "Result cursor")
             period /= list.size
             var resultIndex = 0
             var periodIndex = 0
             repeat(result.size) {
                 result[resultIndex] = result[resultIndex] + list[periodIndex]
-                Log.d("rI: $resultIndex, pI: $periodIndex: ${result[resultIndex]}")
                 resultIndex++
                 if (resultIndex%period == 0 && resultIndex != 0) {
                     periodIndex++
@@ -254,8 +280,9 @@ class JapaneseNameFinder {
             }
         }
         
+        Log.d("Result: " + result.toString())
         return result
     }
 
-
+    }
 }

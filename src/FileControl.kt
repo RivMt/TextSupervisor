@@ -5,6 +5,23 @@ import java.io.InputStream
 import java.lang.Exception
 
 class FileControl {
+    
+    fun readName(fn: String): MutableList<NameObject> {
+        val inputStream: InputStream = File(fn).inputStream()
+        val nameList = mutableListOf<NameObject>()
+
+        inputStream.bufferedReader().forEachLine {
+            nameList.add(NameObject(
+                it.split("&")[0],
+                JapaneseNameKoreanCandidatesGenerator.makeNameCases(it.split("&")[0]),
+                it.split("&")[1]
+            ))
+        }
+
+        inputStream.close()
+
+        return nameList
+    }
 
     fun readText(fn: String): MutableList<String> {
         val inputStream: InputStream = File(fn).inputStream()
