@@ -5,6 +5,7 @@ import java.io.File
 import java.io.FileWriter
 import java.io.InputStream
 import java.lang.Exception
+import java.io.FileNotFoundException
 
 import io.rivmt.language.Japanese2Korean
 import io.rivmt.language.name.NameObject
@@ -12,7 +13,43 @@ import io.rivmt.utility.Log
 
 class FileControl {
     
-    fun readName(fn: String): MutableList<NameObject> {
+    ///TODO: Fix indent
+    companion object {
+        
+    fun loadTextFile(fileName: String?): MutableList<String> {
+        return try {
+            Log.v("${fileName}을 불러왔습니다")
+            fileName?.let { readText(it) }!!
+        } catch (e: FileNotFoundException) {
+            Log.v("파일이 존재하지 않습니다")
+            mutableListOf()
+        }
+    }
+    
+    private fun readText(fn: String): MutableList<String> {
+        val inputStream: InputStream = File(fn).inputStream()
+        val lineList = mutableListOf<String>()
+
+        inputStream.bufferedReader().forEachLine {
+            lineList.add(it)
+        }
+
+        inputStream.close()
+
+        return lineList
+    }
+        
+    fun loadNameListFile(fileName: String?): MutableList<NameObject> {
+        return try {
+            Log.v("${fileName}을 불러왔습니다")
+            fileName?.let { FileControl.readName(it) }!!
+        } catch (e: FileNotFoundException) {
+            Log.v("파일이 존재하지 않습니다")
+            mutableListOf()
+        }
+    }
+    
+    private fun readName(fn: String): MutableList<NameObject> {
         val inputStream: InputStream = File(fn).inputStream()
         val nameList = mutableListOf<NameObject>()
 
@@ -29,19 +66,6 @@ class FileControl {
         inputStream.close()
 
         return nameList
-    }
-
-    fun readText(fn: String): MutableList<String> {
-        val inputStream: InputStream = File(fn).inputStream()
-        val lineList = mutableListOf<String>()
-
-        inputStream.bufferedReader().forEachLine {
-            lineList.add(it)
-        }
-
-        inputStream.close()
-
-        return lineList
     }
 
     fun saveText(fn: String?, text: MutableList<String>) {
@@ -67,4 +91,5 @@ class FileControl {
 
     }
 
+    }
 }
