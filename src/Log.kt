@@ -2,8 +2,32 @@ class Log {
 
     companion object {
         
-        private const val isDebug = false
+        private const val isDebug = true
         
+        //With TAG
+        fun v(tag: String, message: String) {
+            println("($tag): $message");
+        }
+
+        fun i(tag: String, message: String) {
+            println("[주의] ($tag): $message");
+        }
+        
+        fun d(tag: String, message: String) {
+            if (isDebug) {
+                println("[디버그] ($tag): $message");
+            }
+        }
+
+        fun w(tag: String, message: String) {
+            println("[경고] ($tag): $message");
+        }
+
+        fun e(tag: String, message: String) {
+            println("[오류] ($tag): $message");
+        }
+        
+        //With number
         fun v(line: Int, message: String) {
             println("$line: $message");
         }
@@ -26,6 +50,7 @@ class Log {
             println("[오류] $line: $message");
         }
 
+        //Only message
         fun v(message: String) {
             println(message);
         }

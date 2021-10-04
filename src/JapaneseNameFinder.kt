@@ -200,12 +200,12 @@ class JapaneseNameFinder {
         
         //Select candidates characters
         for((i, char) in nameChars.withIndex()) {
+            candidateChars.add(mutableListOf())
             //Long sound (=: Double, -: Low)
             val longDoulbe = "=$".toRegex()
             val longLow = "-$".toRegex()
             
             //연속형 장음
-            println(char)
             if (longDoulbe.containsMatchIn(char)) {
                 candidateChars[i] = kanaKoreanMap[char.replace("=", "")]!!.toMutableList()
                 //한글자일 때만 장음 붙임
@@ -225,7 +225,7 @@ class JapaneseNameFinder {
             } else {
                 candidateChars[i] = kanaKoreanMap[char]!!.toMutableList()
             }
-            println(candidateChars[i])
+            Log.d("$char: " + candidateChars[i].toString())
             candidateSize *= candidateChars[i].size
         }
         
@@ -235,15 +235,22 @@ class JapaneseNameFinder {
         }
         
         //Make candidates
-        for(list in candidateChars) {
-            for((j, char) in list.withIndex()) {
-                var index = 0
-                repeat(result.size) {
-                    if (index%(list.size) == j) {
-                        result[index] = result[index] + char
+        var period = result.size
+        for((i,list) in candidateChars.withIndex()) {
+            Log.d(i, "Result cursor")
+            period /= list.size
+            var resultIndex = 0
+            var periodIndex = 0
+            repeat(result.size) {
+                result[resultIndex] = result[resultIndex] + list[periodIndex]
+                Log.d("rI: $resultIndex, pI: $periodIndex: ${result[resultIndex]}")
+                resultIndex++
+                if (resultIndex%period == 0 && resultIndex != 0) {
+                    periodIndex++
+                    if (periodIndex == list.size) {
+                        periodIndex = 0
                     }
                 }
-                index++
             }
         }
         
