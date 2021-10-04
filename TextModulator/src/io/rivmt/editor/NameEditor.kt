@@ -1,6 +1,7 @@
 package io.rivmt.editor
 
 import io.rivmt.utility.Log
+import io.rivmt.utility.Utility
 import io.rivmt.language.name.NameObject
 
 class NameEditor {
@@ -12,15 +13,7 @@ class NameEditor {
             for(find in list) {
                 for(item in find.candidates) {
                     if (item != find.change) {
-                        var count = 0
-                        for(line in text) {
-                            if (line.contains(item)) {
-                                Log.v(line)
-                                count++
-                            }
-                        }
-                    
-                        Log.d("${find.input} > $item: $count")
+                        val count = Utility.findWordInList(text)
                         if (count > 0) {
                             Log.v("${find.input}에 대한 후보 ${item}에 대해 ${count}개가 발견되었습니다.")
                             Log.v("${find.change}로 수정하시겠습니까? (Y/n)")
