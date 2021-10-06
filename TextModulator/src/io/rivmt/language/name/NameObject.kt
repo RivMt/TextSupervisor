@@ -1,8 +1,8 @@
 package io.rivmt.language.name
 
 data class NameObject(
-    val input: String,
-    val candidates: MutableList<String>,
+    val input: String, //Primitive equation of name
+    val candidates: MutableList<String>, //Converting candidates which created by input
     val change: String
 ) {
     override fun toString(): String {
