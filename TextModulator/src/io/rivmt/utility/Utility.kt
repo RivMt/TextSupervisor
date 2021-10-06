@@ -63,7 +63,7 @@ class Utility {
             }
         }
         
-        fun findWordInList(text: MutableList<String>): Int {
+        fun findWordInList(item: String, text: MutableList<String>): Int {
             var count = 0
             for(line in text) {
                 if (line.contains(item)) {
