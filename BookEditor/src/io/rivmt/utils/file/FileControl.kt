@@ -1,4 +1,4 @@
-package io.rivmt.file
+package io.rivmt.utils.file
 
 import java.io.BufferedWriter
 import java.io.File
@@ -7,9 +7,9 @@ import java.io.InputStream
 import java.lang.Exception
 import java.io.FileNotFoundException
 
-import io.rivmt.language.Japanese2Korean
-import io.rivmt.language.name.NameObject
-import io.rivmt.utility.Log
+import io.rivmt.modulator.language.Japanese2Korean
+import io.rivmt.modulator.language.name.NameObject
+import io.rivmt.utils.utility.Log
 
 class FileControl {
     

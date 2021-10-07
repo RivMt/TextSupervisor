@@ -1,7 +1,7 @@
-package io.rivmt.language
+package io.rivmt.modulator.language
 
-import io.rivmt.utility.Log
-import io.rivmt.language.HangulHandler
+import io.rivmt.utils.utility.Log
+import io.rivmt.modulator.language.HangulHandler
 
 class Japanese2Korean {
            

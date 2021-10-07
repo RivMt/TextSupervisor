@@ -1,8 +1,8 @@
-package io.rivmt.editor
+package io.rivmt.modulator.editor
 
-import io.rivmt.utility.Log
-import io.rivmt.utility.Constants
-import io.rivmt.editor.QuotesEditor
+import io.rivmt.utils.utility.Log
+import io.rivmt.utils.utility.Constants
+import io.rivmt.modulator.editor.QuotesEditor
 
 class TextEditor {
 

@@ -1,8 +1,8 @@
-package io.rivmt.editor
+package io.rivmt.modulator.editor
 
-import io.rivmt.utility.Log
-import io.rivmt.utility.Utility
-import io.rivmt.language.name.NameObject
+import io.rivmt.utils.utility.Log
+import io.rivmt.utils.utility.Utility
+import io.rivmt.modulator.language.name.NameObject
 
 class NameEditor {
     companion object {

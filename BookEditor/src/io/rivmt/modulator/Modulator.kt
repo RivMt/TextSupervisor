@@ -1,12 +1,12 @@
-package io.rivmt.cli
+package io.rivmt.modulator
 
-import io.rivmt.utility.Log
-import io.rivmt.utility.Constants
-import io.rivmt.utility.Utility
-import io.rivmt.file.FileControl
-import io.rivmt.editor.TextEditor
-import io.rivmt.editor.NameEditor
-import io.rivmt.language.name.NameObject
+import io.rivmt.utils.utility.Log
+import io.rivmt.utils.utility.Constants
+import io.rivmt.utils.utility.Utility
+import io.rivmt.utils.file.FileControl
+import io.rivmt.modulator.editor.TextEditor
+import io.rivmt.modulator.editor.NameEditor
+import io.rivmt.modulator.language.name.NameObject
 
 fun main(args: Array<String>) {
     Log.v("Text Supervisor System")

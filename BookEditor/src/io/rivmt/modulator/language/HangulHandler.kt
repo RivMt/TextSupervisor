@@ -1,4 +1,4 @@
-package io.rivmt.language
+package io.rivmt.modulator.language
 
 class HangulHandler {
 

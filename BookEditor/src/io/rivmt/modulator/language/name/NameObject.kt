@@ -1,4 +1,4 @@
-package io.rivmt.language.name
+package io.rivmt.modulator.language.name
 
 data class NameObject(
     val input: String, //Primitive equation of name

@@ -1,4 +1,4 @@
-package io.rivmt.utility
+package io.rivmt.utils.utility
 
 class Constants {
     companion object {
