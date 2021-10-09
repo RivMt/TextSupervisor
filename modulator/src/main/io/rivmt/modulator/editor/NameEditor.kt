@@ -2,7 +2,7 @@ package io.rivmt.modulator.editor
 
 import io.rivmt.utils.utility.Log
 import io.rivmt.utils.utility.Utility
-import io.rivmt.modulator.language.name.NameObject
+import io.rivmt.utils.language.name.NameObject
 
 class NameEditor {
     companion object {

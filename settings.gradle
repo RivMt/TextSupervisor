@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'BookEditor'
+include 'modulator'
+include 'library'

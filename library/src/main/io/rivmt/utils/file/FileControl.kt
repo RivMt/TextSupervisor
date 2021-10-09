@@ -7,8 +7,8 @@ import java.io.InputStream
 import java.lang.Exception
 import java.io.FileNotFoundException
 
-import io.rivmt.modulator.language.Japanese2Korean
-import io.rivmt.modulator.language.name.NameObject
+import io.rivmt.utils.language.Japanese2Korean
+import io.rivmt.utils.language.name.NameObject
 import io.rivmt.utils.utility.Log
 
 class FileControl {

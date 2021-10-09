@@ -13,14 +13,7 @@ class ModulatorConsole: Console() {
     
     var fileName: String? = null //Target text file name
     var inputText: MutableList<String> = mutableListOf()//List target text lines
-    var taskEnd = false //If taskEnd become true, quit program
-    
-    fun main() {
-        Log.v("텍본 교열 장치")
-        Log.v("텍본의 문장 부호, 문단 서식 등을 수정합니다.\n강제개행된 텍스트에 사용하지 마십시오.")
-    
-        start(taskEnd)
-    }    
+    var taskEnd = false //If taskEnd become true, quit program   
 
     override fun showMainMenu() {
         Log.v(Constants.TEXT_HORIZONTAL_LINE)
