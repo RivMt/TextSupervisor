@@ -1,5 +1,7 @@
 package io.rivmt.utils.utility
 
+import java.lang.StringBuilder
+
 class Utility {
     companion object {
         fun countChar(text: String, find: Char): Int {
@@ -74,5 +76,30 @@ class Utility {
             return count
         }
         
+        fun getFileNameWithoutExtension(fileName: String): String {
+            val list = fileName.split('.')
+            
+            if (list.size <= 1) {
+                return fileName
+            } else {
+                val builder = StringBuilder()
+                var index = 0
+                repeat(list.size - 1) {
+                    builder.append(list[index])
+                    index++
+                }
+                return builder.toString()
+            }
+        }
+        
+        fun getFileExtension(fileName: String): String {
+            val list = fileName.split('.')
+            
+            if (list.size <= 1) {
+                return ""
+            } else {
+                return list[list.size - 1]
+            }
+        }
     }
 }
