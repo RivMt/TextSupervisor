@@ -6,7 +6,16 @@ import io.rivmt.utils.utility.Utility
 import io.rivmt.utils.file.FileControl
 import io.rivmt.modulator.editor.TextEditor
 import io.rivmt.modulator.editor.NameEditor
+import io.rivmt.modulator.editor.TagEditor
 import io.rivmt.modulator.language.name.NameObject
+
+val actionMap = mapOf<Int, String>(
+    Constants.CODE_CONSOLE_FILE_READ to "텍스트 파일 불러오기",
+    Constants.CODE_MODULATOR_JAPANESE_NAME_CONSISTENCY to "일본어 고유명사 일관성 검사",
+    Constants.CODE_MODULATOR_SUGGESTED_OPTION to "자동 교열",
+    Constants.CODE_MODULATOR_APPEND_TAG to "태그가 삽입된 사본 생성",
+    Constants.CODE_CONSOLE_END to "종료"
+)
 
 fun main(args: Array<String>) {
     Log.v("Text Supervisor System")
@@ -16,6 +25,7 @@ fun main(args: Array<String>) {
     var taskEnd = false //If taskEnd become true, quit program
     var taskCode: Int //Integer inputted by User
     var fileName: String? = null //Target text file name
+    var fileNameExt = "" //Additional Extension
     var inputText: MutableList<String> //List target text lines
     
     
@@ -29,11 +39,12 @@ fun main(args: Array<String>) {
         } catch (e: Exception) {
             Constants.CODE_CONSOLE_INVALID //When input is not integer, return INVALID
         }
+        
 
         //Check Code
         when(taskCode) {
             //Read txt file
-            0 -> {
+            Constants.CODE_CONSOLE_FILE_READ -> {
                 Log.v(Constants.TEXT_HORIZONTAL_LINE)
                 Log.v("파일명을 입력해주세요")
                 fileName = readLine()
@@ -51,16 +62,19 @@ fun main(args: Array<String>) {
                 //Refresh text file
                 inputText = FileControl.loadTextFile(fileName)
                 
+                //Reset additional extension
+                fileNameExt = ""
+                
                 //Action
                 when(taskCode) {
                     //Japanese name consistency check
-                    5 -> {
+                    Constants.CODE_MODULATOR_JAPANESE_NAME_CONSISTENCY -> {
                         Log.v("처리할 인명 목록이 있는 파일명을 입력해주세요")
                         val fn = readLine() //Read name list text file
                         inputText = NameEditor.fixNameConsistency(FileControl.loadNameListFile(fn), inputText)
                     }
                     //Suggestion
-                    500 -> {
+                    Constants.CODE_MODULATOR_SUGGESTED_OPTION -> {
                         inputText = TextEditor.removeManualIndents(inputText)//들여쓰기
                         inputText = TextEditor.interactiveQuotesEditor(inputText)
                         inputText = TextEditor.replaceSpecialCharacters(inputText)//특수문자
@@ -68,10 +82,16 @@ fun main(args: Array<String>) {
                         Utility.analyzeBrackets(inputText)//괄호점검
                         Utility.analyzeNotations(inputText)//각주
                     }
+                    //Append tag
+                    Constants.CODE_MODULATOR_APPEND_TAG -> {
+                        Log.v("태그 삽입 완료")
+                        inputText = TagEditor.appendTag(inputText)
+                        fileNameExt = ".tag"
+                    }
                 }
                 
                 //Save text file
-                FileControl.saveText(fileName, inputText)
+                FileControl.saveText(fileName + fileNameExt, inputText)
             }
         }
 
@@ -81,9 +101,11 @@ fun main(args: Array<String>) {
 
 private fun showMainMenu() {
     Log.v(Constants.TEXT_HORIZONTAL_LINE)
-    Log.v("0: 파일 불러오기\n" +
-            "5: 일본어 고유명사 일관성 검사\n" +
-            "500: 추천 설정으로 자동 정리\n" +
-            "999: 종료")
+    var index = 0
+    repeat(actionMap.size) {
+        var key = actionMap.keys.toList()[index]
+        Log.v("$key: ${actionMap[key]}")
+        index++
+    }
     print("작업을 선택해주세요: ")
 }

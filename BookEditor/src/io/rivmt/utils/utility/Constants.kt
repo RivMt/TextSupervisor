@@ -2,6 +2,7 @@ package io.rivmt.utils.utility
 
 class Constants {
     companion object {
+        const val CODE_CONSOLE_FILE_READ = 0
         const val CODE_CONSOLE_END = 999;
         const val CODE_CONSOLE_INVALID = 998;
 
@@ -9,6 +10,11 @@ class Constants {
         const val TEXT_MAX_CHARACTERS_PER_LINE = 50;
 
         const val MSG_UNHANDLED_TEXTS = "자동으로 처리되지 않은 문장이 있습니다.";
+        
+        //MODULATOR
+        const val CODE_MODULATOR_JAPANESE_NAME_CONSISTENCY = 1
+        const val CODE_MODULATOR_SUGGESTED_OPTION = 2
+        const val CODE_MODULATOR_APPEND_TAG = 3
             
         //KOREAN - HANGUL CODES
         //CHOSEONG
