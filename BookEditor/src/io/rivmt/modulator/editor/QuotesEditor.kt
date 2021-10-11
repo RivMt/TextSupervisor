@@ -57,16 +57,64 @@ class QuotesEditor {
                     text = regDoubleQuotesLast.replace(text, "”")
                 }
                 TYPE_DOUBLE_QUOTES_FIRST_MIDDLE -> {
-                    text = regDoubleQuotesFirst.replace(text, "“")
-                    text = text.replace("\"", "”\n")
+                    Log.m(str)
+                    Log.m("1) 큰따옴표 뒤로 줄바꿈")
+                    Log.m("2) 작은따옴표로 변경")
+                    Log.m("3) 무시")
+                    var complete = false
+                    while(!complete) {
+                        Log.h("선택: ")
+                        val order = readLine()
+                        when(order) {
+                            "1" -> {
+                                text = regDoubleQuotesFirst.replace(text, "“")
+                                text = text.replace("\"", "”\n")
+                                complete = true
+                            }
+                            "2" -> {
+                                text = text.replaceFirst("\"", "‘")
+                                text = text.replace("\"", "’")
+                                complete = true
+                            }
+                            "3" -> {
+                                complete = true
+                                Log.m("위 문장은 수동 처리가 필요합니다.")
+                            }
+                        }
+                        Log.m("")
+                    }
                 }
                 TYPE_DOUBLE_QUOTES_MIDDLE_LAST -> {
                     text = regDoubleQuotesLast.replace(text, "”")
                     text = text.replace("\"", "\n“")
                 }
                 TYPE_DOUBLE_QUOTES_BOTH_MIDDLE -> {
-                    text = text.replace("\"", "\n“")
-                    text = text.replace("\"", "”\n")
+                    Log.m(str)
+                    Log.m("1) 큰따옴표 앞뒤로 줄바꿈")
+                    Log.m("2) 작은따옴표로 변경")
+                    Log.m("3) 무시")
+                    var complete = false
+                    while(!complete) {
+                        Log.h("선택: ")
+                        val order = readLine()
+                        when(order) {
+                            "1" -> {
+                                text = text.replaceFirst("\"", "\n“")
+                                text = text.replace("\"", "”\n")
+                                complete = true
+                            }
+                            "2" -> {
+                                text = text.replaceFirst("\"", "‘")
+                                text = text.replace("\"", "’")
+                                complete = true
+                            }
+                            "3" -> {
+                                complete = true
+                                Log.m("위 문장은 수동 처리가 필요합니다.")
+                            }
+                        }
+                        Log.m("")
+                    }
                 }
                 TYPE_DOUBLE_QUOTES_FIRST_ONLY -> {
                     Log.m(str)
@@ -81,20 +129,18 @@ class QuotesEditor {
                             "1" -> {
                                 text = text.replace("\"", "")
                                 complete = true
-                                Log.m("")
                             }
                             "2" -> {
                                 text = text.replace("\"", "“")
                                 text = text + "”"
                                 complete = true
-                                Log.m("")
                             }
                             "3" -> {
                                 complete = true
                                 Log.m("위 문장은 수동 처리가 필요합니다.")
-                                Log.m("")
                             }
                         }
+                        Log.m("")
                     }
                 }
                 TYPE_DOUBLE_QUOTES_LAST_ONLY -> {
@@ -110,20 +156,18 @@ class QuotesEditor {
                             "1" -> {
                                 text = text.replace("\"", "")
                                 complete = true
-                                Log.m("")
                             }
                             "2" -> {
                                 text = text.replace("\"", "”")
                                 text = "“"+text
                                 complete = true
-                                Log.m("")
                             }
                             "3" -> {
                                 complete = true
                                 Log.m("위 문장은 수동 처리가 필요합니다.")
-                                Log.m("")
                             }
                         }
+                        Log.m("")
                     }
                 }
                 TYPE_DOUBLE_QUOTES_MIDDLE_ONLY, TYPE_DOUBLE_QUOTES_MULTIPLE -> {
@@ -154,19 +198,17 @@ class QuotesEditor {
                             "1" -> {
                                 text = text.replace("'", "")
                                 complete = true
-                                Log.m("")
                             }
                             "2" -> {
                                 text = text.replace("'", "ʼ")
                                 complete = true
-                                Log.m("")
                             }
                             "3" -> {
                                 complete = true
                                 Log.w("위 문장은 수동 처리가 필요합니다.")
-                                Log.m("")
                             }
                         }
+                        Log.m("")
                     }
                 }
                 2 -> {
