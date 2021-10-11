@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     //Task
     var taskEnd = false //If taskEnd become true, quit program
     var taskCode: Int //Integer inputted by User
-    var fileName: String? = null //Target text file name
+    var fileName: String? = ""//Target text file name
     var fileNameExt = "" //Additional Extension
     var inputText: MutableList<String> //List target text lines
     

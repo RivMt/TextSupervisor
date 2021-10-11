@@ -22,6 +22,9 @@ class FileControl {
             } catch (e: FileNotFoundException) {
                 Log.e("파일이 존재하지 않습니다\n$e")
                 mutableListOf()
+            } catch (e: KotlinNullPointerException) {
+                Log.e("파일을 불러오지 않았습니다\n$e")
+                mutableListOf()
             }
         }
     
@@ -44,6 +47,9 @@ class FileControl {
                 fileName?.let { FileControl.readName(it) }!!
             } catch (e: FileNotFoundException) {
                 Log.e("파일이 존재하지 않습니다\n$e")
+                mutableListOf()
+            } catch (e: KotlinNullPointerException) {
+                Log.e("파일을 불러오지 않았습니다\n$e")
                 mutableListOf()
             }
         }
@@ -90,6 +96,8 @@ class FileControl {
             } catch (e: Exception) {
                 Log.e("파일 ${fn}을(를) 저장하는데 실패했습니다\n$e")
                 return
+            } catch (e: KotlinNullPointerException) {
+                Log.e("파일을 불러오지 않았습니다\n$e")
             }
 
         }
