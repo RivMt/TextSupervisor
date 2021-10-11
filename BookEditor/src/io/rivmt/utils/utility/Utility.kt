@@ -14,18 +14,18 @@ class Utility {
         }
         
         fun analyzeNotations(list: List<String>) {
-            Log.v("각주 분석 정보")
+            Log.m("각주 분석 정보")
             for(i in list.indices) {
                 if (list[i].contains("각주|역자|역주|식자|주석|참고".toRegex())
                     || list[i].contains("*")
                     || list[i].contains("\\[[0-9]+\\]".toRegex())) {
-                    Log.v("${i+1}: ${list[i].substring(0,Math.min(Constants.TEXT_MAX_CHARACTERS_PER_LINE, list[i].length))}")
+                    Log.m("${i+1}: ${list[i].substring(0,Math.min(Constants.TEXT_MAX_CHARACTERS_PER_LINE, list[i].length))}")
                 }
             }
         }
         
         fun analyzeBrackets(list: List<String>) {
-            Log.v("괄호 분석 정보")
+            Log.m("괄호 분석 정보")
             var numberSmallBrackets = 0 //()
             var numberMiddleBrackets = 0 //{}
             var numberLargeBrackets = 0 //[]
@@ -47,7 +47,7 @@ class Utility {
                 numberGLEQBrackets += item.length-item.replace("<","").length+item.length-item.replace(">","").length
             }
 
-            Log.v("(소괄호) : $numberSmallBrackets\n" +
+            Log.m("(소괄호) : $numberSmallBrackets\n" +
                     "{중괄호} : $numberMiddleBrackets\n" +
                     "[대괄호] : $numberLargeBrackets\n" +
                     "〔괄호〕: $numberCurvedBrackets\n" +
@@ -58,7 +58,7 @@ class Utility {
                     "<부등호>: $numberGLEQBrackets")
 
             if (numberMiddleBrackets+numberLargeBrackets+numberGLEQBrackets > 0) {
-                Log.i("인쇄체에 적합하지 않은 괄호가 ${numberMiddleBrackets+numberLargeBrackets+numberGLEQBrackets}개 발견되었습니다.\n" +
+                Log.m("인쇄체에 적합하지 않은 괄호가 ${numberMiddleBrackets+numberLargeBrackets+numberGLEQBrackets}개 발견되었습니다.\n" +
                         "적합한 형태로 교체해주세요.")
             }
         }

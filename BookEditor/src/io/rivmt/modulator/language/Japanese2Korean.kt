@@ -253,7 +253,7 @@ class Japanese2Korean {
                            candidateChars[i] = kanaKoreanMap[char]!!.toMutableList()
                        }
                    }
-                   Log.d("$char: " + candidateChars[i].toString())
+                   Log.v("$char: " + candidateChars[i].toString())
                    candidateSize *= candidateChars[i].size
                }
                

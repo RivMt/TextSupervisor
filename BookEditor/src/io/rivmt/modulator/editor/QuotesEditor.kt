@@ -69,66 +69,66 @@ class QuotesEditor {
                     text = text.replace("\"", "”\n")
                 }
                 TYPE_DOUBLE_QUOTES_FIRST_ONLY -> {
-                    Log.v(str)
-                    Log.v("1) 맨 앞 큰따옴표 제거")
-                    Log.v("2) 맨 뒤에 큰따옴표 삽입")
-                    Log.v("3) 무시")
+                    Log.m(str)
+                    Log.m("1) 맨 앞 큰따옴표 제거")
+                    Log.m("2) 맨 뒤에 큰따옴표 삽입")
+                    Log.m("3) 무시")
                     var complete = false
                     while(!complete) {
-                        print("선택: ")
+                        Log.h("선택: ")
                         val order = readLine()
                         when(order) {
                             "1" -> {
                                 text = text.replace("\"", "")
                                 complete = true
-                                Log.v("")
+                                Log.m("")
                             }
                             "2" -> {
                                 text = text.replace("\"", "“")
                                 text = text + "”"
                                 complete = true
-                                Log.v("")
+                                Log.m("")
                             }
                             "3" -> {
                                 complete = true
-                                Log.w("위 문장은 수동 처리가 필요합니다.")
-                                Log.v("")
+                                Log.m("위 문장은 수동 처리가 필요합니다.")
+                                Log.m("")
                             }
                         }
                     }
                 }
                 TYPE_DOUBLE_QUOTES_LAST_ONLY -> {
-                    Log.v(str)
-                    Log.v("1) 맨 뒤 큰따옴표 제거")
-                    Log.v("2) 맨 앞에 큰따옴표 삽입")
-                    Log.v("3) 무시")
+                    Log.m(str)
+                    Log.m("1) 맨 뒤 큰따옴표 제거")
+                    Log.m("2) 맨 앞에 큰따옴표 삽입")
+                    Log.m("3) 무시")
                     var complete = false
                     while(!complete) {
-                        print("선택: ")
+                        Log.h("선택: ")
                         val order = readLine()
                         when(order) {
                             "1" -> {
                                 text = text.replace("\"", "")
                                 complete = true
-                                Log.v("")
+                                Log.m("")
                             }
                             "2" -> {
                                 text = text.replace("\"", "”")
                                 text = "“"+text
                                 complete = true
-                                Log.v("")
+                                Log.m("")
                             }
                             "3" -> {
                                 complete = true
-                                Log.w("위 문장은 수동 처리가 필요합니다.")
-                                Log.v("")
+                                Log.m("위 문장은 수동 처리가 필요합니다.")
+                                Log.m("")
                             }
                         }
                     }
                 }
                 TYPE_DOUBLE_QUOTES_MIDDLE_ONLY, TYPE_DOUBLE_QUOTES_MULTIPLE -> {
-                    Log.v(str)
-                    Log.w("위 문장은 수동 처리가 필요합니다.")
+                    Log.m(str)
+                    Log.m("위 문장은 수동 처리가 필요합니다.")
                 }
             }        
             return text
@@ -142,29 +142,29 @@ class QuotesEditor {
             //Edit
             when(count) {
                 1 -> {
-                    Log.v(str)
-                    Log.v("1) 작은따옴표 제거")
-                    Log.v("2) 어깻점으로 변경")
-                    Log.v("3) 무시")
+                    Log.m(str)
+                    Log.m("1) 작은따옴표 제거")
+                    Log.m("2) 어깻점으로 변경")
+                    Log.m("3) 무시")
                     var complete = false
                     while(!complete) {
-                        print("선택: ")
+                        Log.h("선택: ")
                         val order = readLine()
                         when(order) {
                             "1" -> {
                                 text = text.replace("'", "")
                                 complete = true
-                                Log.v("")
+                                Log.m("")
                             }
                             "2" -> {
                                 text = text.replace("'", "ʼ")
                                 complete = true
-                                Log.v("")
+                                Log.m("")
                             }
                             "3" -> {
                                 complete = true
                                 Log.w("위 문장은 수동 처리가 필요합니다.")
-                                Log.v("")
+                                Log.m("")
                             }
                         }
                     }
@@ -175,8 +175,8 @@ class QuotesEditor {
                 }
                 else -> { //more than 3
                     if (count%2 == 1) { //odd
-                        Log.w("위 문장은 수동 처리가 필요합니다.")
-                        Log.v("")
+                        Log.m("위 문장은 수동 처리가 필요합니다.")
+                        Log.m("")
                     } else { //even
                         repeat(count/2) {
                             text = text.replaceFirst("'", "‘")

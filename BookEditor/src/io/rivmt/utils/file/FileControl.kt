@@ -17,10 +17,10 @@ class FileControl {
         
         fun loadTextFile(fileName: String?): MutableList<String> {
             return try {
-                Log.v("${fileName}을 불러왔습니다")
+                Log.m("${fileName}을 불러왔습니다")
                 fileName?.let { readText(it) }!!
             } catch (e: FileNotFoundException) {
-                Log.v("파일이 존재하지 않습니다")
+                Log.e("파일이 존재하지 않습니다\n$e")
                 mutableListOf()
             }
         }
@@ -40,10 +40,10 @@ class FileControl {
         
         fun loadNameListFile(fileName: String?): MutableList<NameObject> {
             return try {
-                Log.v("${fileName}을 불러왔습니다")
+                Log.m("${fileName}을 불러왔습니다")
                 fileName?.let { FileControl.readName(it) }!!
             } catch (e: FileNotFoundException) {
-                Log.v("파일이 존재하지 않습니다")
+                Log.e("파일이 존재하지 않습니다\n$e")
                 mutableListOf()
             }
         }

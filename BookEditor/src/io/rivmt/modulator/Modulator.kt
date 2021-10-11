@@ -18,8 +18,8 @@ val actionMap = mapOf<Int, String>(
 )
 
 fun main(args: Array<String>) {
-    Log.v("Text Supervisor System")
-    Log.v("강제개행된 텍스트에 사용하지 마십시오")
+    Log.m("Modulator")
+    Log.m("강제개행된 텍스트에 사용하지 마십시오")
 
     //Task
     var taskEnd = false //If taskEnd become true, quit program
@@ -45,14 +45,14 @@ fun main(args: Array<String>) {
         when(taskCode) {
             //Read txt file
             Constants.CODE_CONSOLE_FILE_READ -> {
-                Log.v(Constants.TEXT_HORIZONTAL_LINE)
-                Log.v("파일명을 입력해주세요")
+                Log.m(Constants.TEXT_HORIZONTAL_LINE)
+                Log.m("파일명을 입력해주세요")
                 fileName = readLine()
                 inputText = FileControl.loadTextFile(fileName)
                 FileControl.saveText(fileName, inputText)
             }
             //Invalid input
-            Constants.CODE_CONSOLE_INVALID -> Log.v("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
+            Constants.CODE_CONSOLE_INVALID -> Log.m("유효하지 않은 명령입니다. 종료하려면 999를 입력하십시오")
             //Quit
             Constants.CODE_CONSOLE_END -> taskEnd = true
             //Otherwise
@@ -69,7 +69,7 @@ fun main(args: Array<String>) {
                 when(taskCode) {
                     //Japanese name consistency check
                     Constants.CODE_MODULATOR_JAPANESE_NAME_CONSISTENCY -> {
-                        Log.v("처리할 인명 목록이 있는 파일명을 입력해주세요")
+                        Log.m("처리할 인명 목록이 있는 파일명을 입력해주세요")
                         val fn = readLine() //Read name list text file
                         inputText = NameEditor.fixNameConsistency(FileControl.loadNameListFile(fn), inputText)
                     }
@@ -84,7 +84,7 @@ fun main(args: Array<String>) {
                     }
                     //Append tag
                     Constants.CODE_MODULATOR_APPEND_TAG -> {
-                        Log.v("태그 삽입 완료")
+                        Log.m("태그 삽입 완료")
                         inputText = TagEditor.appendTag(inputText)
                         fileNameExt = ".tag"
                     }
@@ -100,12 +100,12 @@ fun main(args: Array<String>) {
 }
 
 private fun showMainMenu() {
-    Log.v(Constants.TEXT_HORIZONTAL_LINE)
+    Log.m(Constants.TEXT_HORIZONTAL_LINE)
     var index = 0
     repeat(actionMap.size) {
         var key = actionMap.keys.toList()[index]
-        Log.v("$key: ${actionMap[key]}")
+        Log.m("$key: ${actionMap[key]}")
         index++
     }
-    print("작업을 선택해주세요: ")
+    Log.h("작업을 선택해주세요: ")
 }
