@@ -8,7 +8,7 @@ class NameEditor {
     companion object {
         fun fixNameConsistency(list: MutableList<NameObject>, text: MutableList<String>): MutableList<String> {
             val result = text
-            
+            Log.split()
             Log.m("인명 일관성 검사")
             for(find in list) {
                 for(item in find.candidates) {

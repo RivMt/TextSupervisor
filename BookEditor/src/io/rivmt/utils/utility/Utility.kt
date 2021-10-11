@@ -14,6 +14,7 @@ class Utility {
         }
         
         fun analyzeNotations(list: List<String>) {
+            Log.split()
             Log.m("각주 분석 정보")
             for(i in list.indices) {
                 if (list[i].contains("각주|역자|역주|식자|주석|참고".toRegex())
@@ -25,6 +26,7 @@ class Utility {
         }
         
         fun analyzeBrackets(list: List<String>) {
+            Log.split()
             Log.m("괄호 분석 정보")
             var numberSmallBrackets = 0 //()
             var numberMiddleBrackets = 0 //{}

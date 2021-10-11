@@ -16,6 +16,10 @@ class Log {
             print("$message")
         }
         
+        fun split() {
+            println("====================================")
+        }
+        
         //With TAG
         fun v(tag: String, message: String) {
             if (logLevel <= 0) {

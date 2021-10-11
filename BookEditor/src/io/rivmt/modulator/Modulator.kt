@@ -40,13 +40,14 @@ fun main(args: Array<String>) {
             Constants.CODE_CONSOLE_INVALID //When input is not integer, return INVALID
         }
         
+        
+        Log.split()
 
         //Check Code
         when(taskCode) {
             //Read txt file
             Constants.CODE_CONSOLE_FILE_READ -> {
-                Log.m(Constants.TEXT_HORIZONTAL_LINE)
-                Log.m("파일명을 입력해주세요")
+                Log.h("텍스트 파일명: ")
                 fileName = readLine()
                 inputText = FileControl.loadTextFile(fileName)
                 FileControl.saveText(fileName, inputText)
@@ -57,7 +58,6 @@ fun main(args: Array<String>) {
             Constants.CODE_CONSOLE_END -> taskEnd = true
             //Otherwise
             else -> {
-                Log.v(Constants.TEXT_HORIZONTAL_LINE)
                 
                 //Refresh text file
                 inputText = FileControl.loadTextFile(fileName)
@@ -69,7 +69,7 @@ fun main(args: Array<String>) {
                 when(taskCode) {
                     //Japanese name consistency check
                     Constants.CODE_MODULATOR_JAPANESE_NAME_CONSISTENCY -> {
-                        Log.m("처리할 인명 목록이 있는 파일명을 입력해주세요")
+                        Log.h("고유명사 목록 파일: ")
                         val fn = readLine() //Read name list text file
                         inputText = NameEditor.fixNameConsistency(FileControl.loadNameListFile(fn), inputText)
                     }
@@ -84,9 +84,10 @@ fun main(args: Array<String>) {
                     }
                     //Append tag
                     Constants.CODE_MODULATOR_APPEND_TAG -> {
-                        Log.m("태그 삽입 완료")
+                        Log.m("태그 삽입 개시...")
                         inputText = TagEditor.appendTag(inputText)
                         fileNameExt = ".tag"
+                        Log.m("완료")
                     }
                 }
                 
@@ -100,7 +101,7 @@ fun main(args: Array<String>) {
 }
 
 private fun showMainMenu() {
-    Log.m(Constants.TEXT_HORIZONTAL_LINE)
+    Log.split()
     var index = 0
     repeat(actionMap.size) {
         var key = actionMap.keys.toList()[index]

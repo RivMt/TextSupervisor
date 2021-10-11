@@ -9,17 +9,20 @@ class TextEditor {
     companion object {
 
         fun removeManualIndents(list: List<String>): MutableList<String> {
-            Log.m("수동 들여쓰기를 제거합니다")
+            Log.split()
+            Log.m("수동 들여쓰기 제거 중...")
             val l = mutableListOf<String>()
             for(item in list) {
                 l.add(item.replace("^[\\s　]+".toRegex(),""))
             }
+            Log.m("완료")
             return l
         }
 
     
         fun replaceSpecialCharacters(list: List<String>): MutableList<String> {
-            Log.m("특수문자 기호 정리를 시작합니다")
+            Log.split()
+            Log.m("특수문자 정리 중...")
             val l = mutableListOf<String>()
             var t: String
             for(i in list.indices) {
@@ -35,12 +38,14 @@ class TextEditor {
                         .replace("…·", "…")
                 l.add(t)
             }
+            Log.m("완료")
             return l
         }
 
     
         fun resetSpaces(list: List<String>): MutableList<String> {
-            Log.m("띄어쓰기 수정을 시작합니다")
+            Log.split()
+            Log.m("띄어쓰기 수정 중...")
             val l = mutableListOf<String>()
             var t: String
             for(i in list.indices) {
@@ -61,13 +66,15 @@ class TextEditor {
                         .replace(", ”",",”")
                 l.add(t)
             }
+            Log.m("완료")
             return l
         }
     
     
         fun interactiveQuotesEditor(input: List<String>): MutableList<String> {  
+            Log.split()
             val lines = mutableListOf<String>()  
-            Log.m("대화형 따옴표 수정기")
+            Log.m("대화형 따옴표 개시...")
             for(str in input) {
                 //Reset quotes
                 var line = str.replace("“", "\"").replace("”", "\"").replace("‘", "'").replace("’", "'")
@@ -82,6 +89,7 @@ class TextEditor {
             
                 lines.add(line)
             }
+            Log.m("완료")
             return lines
         }
 

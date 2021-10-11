@@ -6,7 +6,6 @@ class Constants {
         const val CODE_CONSOLE_END = 999;
         const val CODE_CONSOLE_INVALID = 998;
 
-        const val TEXT_HORIZONTAL_LINE = "====================================";
         const val TEXT_MAX_CHARACTERS_PER_LINE = 50;
 
         const val MSG_UNHANDLED_TEXTS = "자동으로 처리되지 않은 문장이 있습니다.";

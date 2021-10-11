@@ -26,8 +26,8 @@ class TagEditor {
             if (find.containsMatchIn(line)) {
                 val tail = ">.+".toRegex()
                 tag = tail.replace(line, "").replace("<", "")
+                Log.d("Tag found: $tag")
             }
-            Log.d("Tag found: $tag")
             return tag
         }
     }
