@@ -11,8 +11,12 @@ class TagEditor {
                 val tag = extractTagName(item)
                 
                 //
-                if (tag == "") { //Append default tag
-                    result.add("<p>" + item + "</p>")
+                if (tag == "") { //No tag
+                    if (item == "*") {
+                        result.add("<cd>*</cd>")
+                    } else { //Append default tag
+                        result.add("<p>" + item + "</p>")
+                    }
                 } else { //Close tag
                     result.add(item + "</$tag>")
                 }
